@@ -1,4 +1,4 @@
-import requests
+import urllib.request
 import re
 import time
 from bs4 import BeautifulSoup
@@ -8,7 +8,7 @@ import winsound
 location_arr = ['101','102','103','104','105','106','107','108','109','110','111','112','113','114','115','116','117','118','119','120','121','122','123']
 locationname_arr = ['Lawrenceville','Bayonne','North Cape May','Camden','Cardiff','Salem','Delanco','Eatontown','SouthPlainfield','Edison','Flemington','Toms River','Freehold','Lodi','Vineland','Newark','North Bergen','Wayne','Oakland','Paterson','Thorofare','Rahway','Randolph']
 base_url_link='https://telegov.njportal.com/njmvc/AppointmentWizard/11/'
-required_months = ['March','April']
+required_months = ['May','June']
 
 def beep():
     winsound.Beep(1500, 500)
@@ -29,8 +29,9 @@ def job():
     
     for location in location_arr:
         print(location)
-        page_html = requests.get(base_url_link+location)
-        soup = BeautifulSoup(page_html.text ,'lxml')
+        with urllib.request.urlopen(base_url_link+location) as response:
+            page_html = response.read()
+        soup = BeautifulSoup(page_html ,'lxml')
         unavailable=soup.find('div',attrs={'class': 'alert-danger'})
         if unavailable is not None :
             #print('No appointments are available in '+locationname_arr[i])
