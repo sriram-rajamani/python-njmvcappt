@@ -14,6 +14,9 @@ location_arr = ['101','104']
 locationname_arr = ['Lawrenceville','Camden']
 
 
-if you want to be notified only when appt is available on specific month, for example only on "April" then update the required moths variable accordingly.
+If you want to be notified only when appt is available on specific month, for example only on "April" then update the required moths variable accordingly.
 required_months = ['April']
 
+If you want to send an email when there is an appointment ready.
+send_email_on = True in dl-alert.py
+set variables in send_email.py from line 5 - 8

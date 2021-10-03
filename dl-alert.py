@@ -4,6 +4,7 @@ import time
 from bs4 import BeautifulSoup
 from datetime import datetime
 import winsound
+import send_email
 
 location_arr = ['101','102','103','104','105','106','107','108','109','110','111','112','113','114','115','116','117','118','119','120','121','122','123']
 locationname_arr = ['Lawrenceville','Bayonne','North Cape May','Camden','Cardiff','Salem','Delanco','Eatontown','SouthPlainfield','Edison','Flemington','Toms River','Freehold','Lodi','Vineland','Newark','North Bergen','Wayne','Oakland','Paterson','Thorofare','Rahway','Randolph']
@@ -46,6 +47,10 @@ def job():
                 message = 'DL Renew Dates: '+locationname_arr[i]+' / ('+location+') : '+date_string
                 print(message)
                 beep()
+                if send_email_on:
+                    send_email(message)
+                else:
+                    continue
                 found=1
         i=i+1
         
@@ -53,7 +58,7 @@ while True :
     try:
         job()
     except:
-        print("Something went wrong")
+        print("No appointments available yet... waiting 60 seconds to retry")
         time.sleep(60)
     else:
         time.sleep(60)
